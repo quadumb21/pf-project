@@ -1,5 +1,46 @@
 #include <stdio.h>
 
+#define MAX_STUDENTS 100
+
+int rollNo[MAX_STUDENTS];
+char name[MAX_STUDENTS][50];
+int roomNo[MAX_STUDENTS];
+float feeDue[MAX_STUDENTS];
+int feePaid[MAX_STUDENTS];
+int studentCount = 0;
+
+void addStudent(void) {
+    if (studentCount >= MAX_STUDENTS) {
+        printf("Cannot add more students, hostel is full.\n");
+        return;
+    }
+
+    printf("Enter Roll No: ");
+    scanf("%d", &rollNo[studentCount]);
+
+    printf("Enter Name: ");
+    scanf("%s", name[studentCount]);
+
+    roomNo[studentCount] = 0;      // not allocated yet
+    feeDue[studentCount] = 0;
+    feePaid[studentCount] = 0;
+
+    studentCount++;
+    printf("Student added successfully.\n");
+}
+
+void viewAllStudents(void) {
+    if (studentCount == 0) {
+        printf("No students found.\n");
+        return;
+    }
+
+    printf("\n%-10s %-20s %-10s\n", "Roll No", "Name", "Room No");
+    for (int i = 0; i < studentCount; i++) {
+        printf("%-10d %-20s %-10d\n", rollNo[i], name[i], roomNo[i]);
+    }
+}
+
 int main(void) {
     int choice;
 
@@ -20,7 +61,7 @@ int main(void) {
 
         switch (choice) {
             case 1:
-                printf("Add Student selected.\n");
+                addStudent();
                 break;
             case 2:
                 printf("Allocate Room selected.\n");
@@ -35,7 +76,7 @@ int main(void) {
                 printf("Delete Student Record selected.\n");
                 break;
             case 6:
-                printf("View All Students selected.\n");
+                viewAllStudents();
                 break;
             case 7:
                 printf("View Occupancy Status selected.\n");
